@@ -1,5 +1,6 @@
 Блокнот с кодами для тренировки нейронной сети:
-https://colab.research.google.com/drive/1JzdLN6uJe6Fr_hgpv9yRxTIPVwVdustF?usp=sharing
+https://colab.research.google.com/drive/1JzdLN6uJe6Fr_hgpv9yRxTIPVwVdustF?usp=sharing,
+https://colab.research.google.com/drive/1xujaEZOrjR42Z353IshyENjtHumdQ-um?usp=sharing
 
 Название проекта: CardioAlert
 
