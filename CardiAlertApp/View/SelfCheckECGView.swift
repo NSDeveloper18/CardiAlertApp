@@ -46,7 +46,7 @@ struct SelfCheckECGView: View {
                     VStack {
                         if datas.ImagePickECG9 == Image("photoEx") {
                             Text("upload_photo".localized(language))
-                                .foregroundColor(Color(.systemGray6))
+                                .foregroundColor(Color(.black))
                                 .fontWeight(.semibold)
                                 .font(.system(size: 18))
                             
@@ -65,7 +65,7 @@ struct SelfCheckECGView: View {
                         }
                         else {
                             Text("selected_photo".localized(language))
-                                .foregroundColor(Color(.systemGray6))
+                                .foregroundColor(Color(.black))
                                 .fontWeight(.semibold)
                                 .font(.system(size: 18))
                             

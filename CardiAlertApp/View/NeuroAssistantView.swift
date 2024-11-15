@@ -41,7 +41,7 @@ struct NeuroAssistantView: View {
                 VStack(alignment: .leading) {
                     ForEach(datas.messages) { item in
                         Text(item.text)
-                            .foregroundColor(Color(.green))
+                            .foregroundColor(Color(.black))
                             .padding()
                             .background(Color(.systemGray6))
                             .cornerRadius(8)

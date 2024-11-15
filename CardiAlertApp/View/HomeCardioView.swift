@@ -45,9 +45,9 @@ struct HomeCardioView: View {
                 VStack {
                     if datas.ImageCardioPick == Image("photoExCardio") {
                         Text("upload_photo".localized(language))
-                            .foregroundColor(.black)
+                            .foregroundColor(Color(.black))
                             .fontWeight(.semibold)
-                            .font(.system(size: 16))
+                            .font(.system(size: 18))
                         
                         ZStack {
                             datas.ImageCardioPick
@@ -56,30 +56,36 @@ struct HomeCardioView: View {
                                 .cornerRadius(10)
                         }
                         .scaledToFit()
-                        .frame(width: 180)
+                        .frame(width: 250)
                         .padding(2)
-                        .background(.white)
+                        .background(Color(.systemGray3))
                         .cornerRadius(10)
+                        .shadow(color: Color(.red).opacity(0.3), radius: 2, y: 2)
                     }
                     else {
                         Text("selected_photo".localized(language))
                             .foregroundColor(.black)
+                            .foregroundColor(Color(.black))
                             .fontWeight(.semibold)
-                            .font(.system(size: 16))
+                            .font(.system(size: 18))
                         ZStack {
                             datas.ImageCardioPick
                                 .resizable()
                                 .scaledToFit()
+                                .frame(width: 250)
+                                .padding(2)
+                                .background(Color(.systemGray3))
                                 .cornerRadius(10)
-                                .frame(width: 250, height: 250)
+                                .shadow(color: Color(.red).opacity(0.3), radius: 2, y: 2)
                             if datas.waiting {
                                 ProgressView()
-                                    .frame(width: 250, height: 250)
+                                    .frame(height: 210)
                             }
                         }
-                        .frame(width: 250, height: 250)
+                        .frame(width: 250)
                     }
                 }
+                .padding(.top, 50)
                 .onTapGesture {
                     if datas.ImageCardioPick == Image("photoExCardio") {
                         datas.largeImage = Image("photoExCardio")
@@ -91,12 +97,10 @@ struct HomeCardioView: View {
                         datas.showLargeImage.toggle()
                     }
                 }
-                //                }
                 
-                //                Spacer()
                 Image(systemName: "arrowshape.up")
-                    .foregroundColor(.black)
-                    .padding(.top, 5)
+                    .foregroundColor(Color(hex: "#ff646c"))
+                    .padding(.top, 8)
                     .font(.title2)
                 
                 Text("upload_real_photo_cardio".localized(language))
@@ -108,126 +112,93 @@ struct HomeCardioView: View {
                     .cornerRadius(10)
                     .shadow(color: Color(.black).opacity(0.3),radius: 5)
                     .padding(.horizontal)
-                //                Spacer()
                 
-                VStack(spacing: 1) {
-                    HStack(spacing: 1) {
-                        //                    Spacer()
-                        if datas.checkButton {
-                            HStack {
-                                Image("folder")
-                                    .renderingMode(.template)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 20)
-                                    .foregroundColor(.black)
-                                PhotosPicker("select_photo".localized(language), selection: $datas.ImageCardioItem, matching: .images)
-                            }
-                            .padding()
-                            .background(.white)
-                            .foregroundColor(.black)
-                            .cornerRadius(15, corners: [.topLeft])
+                Spacer()
+                
+                VStack(spacing: 0) {
+                    PhotosPicker(selection: $datas.ImageCardioItem, matching: .images) {
+                        HStack(spacing: 8) {
+                            Image("folder")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 22, height: 20)
+                            
+                            Text("select_photo".localized(language))
+                                .foregroundStyle(Color(.black))
+                                .font(.system(size: 16))
+                                .fixedSize(horizontal: true, vertical: false)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(Color(.systemGray))
+                                .font(.system(size: 16))
+                        }
+                    }
+                    .frame(height: 40)
+                    
+                    Divider()
+                    
+                    Button {
+                        if datas.ImageCardioPick == Image("photoExCardio") {
+                            pickPicture.toggle()
                         }
                         else {
-                            Button {
-                                datas.alertButton = true
-                            } label: {
-                                HStack {
-                                    Image("folder")
-                                        .renderingMode(.template)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 20)
-                                        .foregroundColor(.black)
-                                    Text("select_photo".localized(language))
-                                }
-                                    .padding()
-                                    .background(.white)
-                                    .foregroundColor(.black)
-                                    .cornerRadius(15, corners: [.topLeft])
-                            }
-                            
+                            pickPicture = false
+                            datas.waiting = true
+                            PhotoUpload.uploadImageToServer()
                         }
-                        Button {
-                            if datas.ImageCardioPick == Image("photoExCardio") {
-                                pickPicture.toggle()
-                            }
-                            else {
-                                pickPicture = false
-                                datas.waiting = true
-                                PhotoUpload.uploadImageToServer()
-                            }
-                        } label: {
-                            HStack {
-                                Spacer()
-                                Image("magnify")
-                                    .renderingMode(.template)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 20)
-                                    .foregroundColor(.black)
-                                Text("get_result".localized(language))
-                                    .fixedSize(horizontal: true, vertical: false)
-                                    .foregroundColor(.black)
-                                Spacer()
-                            }
-                            .padding()
-                            .background(datas.checkButton ? Color(.white).opacity(1.0) : Color(.white).opacity(0.3))
-                            .foregroundColor(.black)
-                            .cornerRadius(15, corners: [.topRight])
+                    } label: {
+                        HStack(spacing: 8) {
+                            Image("magnify")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 22, height: 20)
                             
+                            Text("get_result".localized(language))
+                                .foregroundStyle(Color(.black))
+                                .font(.system(size: 16))
                             
+                            Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(Color(.systemGray))
+                                .font(.system(size: 16))
                         }
-                        .disabled(!datas.checkButton)
                     }
+                    .frame(height: 40)
+                    
+                    Divider()
                     
                     Button {
                         showAbout.toggle()
                     } label: {
-                        //                    HStack {
-                        //                        Spacer()
-                        HStack {
-                            Spacer()
+                        HStack(spacing: 8) {
                             Image("info")
-                                .renderingMode(.template)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 20)
-                                .foregroundColor(.black)
-                            Text("about_cardio".localized(language))
-                                .foregroundColor(.black)
-                            Spacer()
-                        }
-                        .padding()
-                        .background(Color(.white))
-                    }
-                    
-                    Button {
-                        datas.alertButton = true
-                    } label: {
-                        //                    HStack {
-                        //                        Spacer()
-                        HStack {
-                            Spacer()
-                            Image(systemName: datas.checkButton ? "checkmark.square.fill" : "square")
-                                .font(.system(size: 20))
-                            //.fontWeight(.semibold)
-                                .foregroundColor(.black)
+                                .frame(width: 22, height: 20)
                             
-                            Text("terms_of_use".localized(language))
-                                .foregroundColor(.black)
+                            Text("about_cardio".localized(language))
+                                .foregroundStyle(Color(.black))
+                                .font(.system(size: 16))
+                            
                             Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(Color(.systemGray))
+                                .font(.system(size: 16))
                         }
-                        .padding()
-                        .background(Color(.white))
-                        .cornerRadius(15, corners: [.bottomRight, .bottomLeft])
-                        //                        Spacer()
-                        //                    }
                     }
-                    //                        }
+                    .frame(height: 40)
                 }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .background(.white)
+                .cornerRadius(16)
                 .shadow(color: Color(.black).opacity(0.3),radius: 5)
-                .padding()
+                .padding(.horizontal, 20)
+                .padding(.bottom, 20)
                 
                 Spacer()
                     .sheet(isPresented: $showAbout) {
