@@ -11,7 +11,7 @@ import SwiftUI
 struct CardiAlertAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ViewController()
         }
     }
 }
